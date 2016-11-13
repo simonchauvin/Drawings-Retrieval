@@ -45,8 +45,8 @@ void ofApp::update()
 			bLearnBackground = false;
 		}
 		grayDiff.absDiff(grayBg, grayImage);
-		grayDiff.threshold(60);
-		contourFinder.findContours(grayDiff, 1000, (RESOLUTION_X * RESOLUTION_Y) / 2, 20, false, true);
+		grayDiff.threshold(THRESHOLD);
+		contourFinder.findContours(grayDiff, MIN_AREA, MAX_AREA, MAX_CONSIDERED, false, true);
 
 		if (readyToSend)
 		{
@@ -80,6 +80,7 @@ void ofApp::update()
 void ofApp::draw()
 {
 	ofSetHexColor(0xffffff);
+	colorImg.contrastStretch();
 	colorImg.draw(0, 0, 320, 240);
 	grayDiff.draw(0, 240, 320, 240);
 	ofDrawRectangle(320, 0, 320, 240);
